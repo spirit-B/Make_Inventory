@@ -11,6 +11,10 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] private Button backButton;
 
+    public UIMainMenu UIMainMenu => mainMenu;
+    public UIStatus UIStatus => status;
+    public UIInventory UIInventory => inventory;
+
     // Start is called before the first frame update
     void Start()
     {

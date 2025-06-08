@@ -6,6 +6,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     private Character Player;
+    public InventoryData _inventory;
+
+    public InventoryData InventoryData
+    {
+        get
+        {
+            if (_inventory == null)
+            {
+                _inventory = new InventoryData();
+            }
+
+            return _inventory;
+        }
+    }
 
     private void Awake()
     {

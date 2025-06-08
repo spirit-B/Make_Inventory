@@ -20,14 +20,8 @@ public class UIManager : Singleton<UIManager>
     {
         mainMenu.Init();
         status.Init();
-        inventory.Init();
+        inventory.InitInventoryUI();
         backButton.onClick.AddListener(() => CloseNowOpen());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OpenInventory()

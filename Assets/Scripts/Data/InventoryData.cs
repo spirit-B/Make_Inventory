@@ -27,5 +27,15 @@ public class InventoryData
                 return;
             }
         }
+
+        if (data.Count < 120)
+        {
+            data.Add(new ItemDataList { item = item });
+            OnChangedInventory?.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("인벤토리 최대치를 초과했습니다.");
+        }
     }
 }

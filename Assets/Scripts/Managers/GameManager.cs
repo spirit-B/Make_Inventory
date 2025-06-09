@@ -21,19 +21,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void Awake()
-    {
-
-    }
     void Start()
     {
         SetData();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SetData()

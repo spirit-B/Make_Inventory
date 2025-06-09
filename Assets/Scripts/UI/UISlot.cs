@@ -16,8 +16,8 @@ public class UISlot : MonoBehaviour
             return;
         }
 
-        icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
+        icon.gameObject.SetActive(true);
     }
 
     public void RefreshUI()

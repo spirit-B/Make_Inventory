@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
+    [SerializeField] private ItemData[] itemList;
+
     public List<UISlot> slots;
     public Transform slotPanel;
     public GameObject slotsPrefab;
@@ -17,6 +19,11 @@ public class UIInventory : MonoBehaviour
     private int hasItemCount = 0;
 
     public bool isOpen = false;
+
+    private void Update()
+    {
+        CreatItem();
+    }
 
     public void InitInventoryUI()
     {
@@ -41,6 +48,41 @@ public class UIInventory : MonoBehaviour
         inventoryCount.text = $"Inventory   {hasItemCount} / {maxSlotCount}";
 
         inventoryData = GameManager.Instance.InventoryData;
+        inventoryData.OnChangedInventory += UpdateUI;
         gameObject.SetActive(isOpen);
+    }
+
+    private void CreatItem()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (itemList == null || itemList.Length == 0)
+            {
+                Debug.LogWarning("ItemList가 비어있습니다. 아이템을 추가하세요.");
+                return;
+            }
+
+            int randomIdx = Random.Range(0, itemList.Length);
+
+            inventoryData.AddItem(itemList[randomIdx]);
+            Debug.Log("아이템이 정상적으로 생성되었습니다.");
+        }
+    }
+
+    private void UpdateUI()
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            var data = inventoryData.data[i];
+            if (data.item != null)
+            {
+                slots[i].item = data.item;
+                slots[i].SetItem();
+            }
+            else
+            {
+                slots[i].RefreshUI();
+            }
+        }
     }
 }

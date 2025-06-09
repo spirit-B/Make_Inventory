@@ -13,3 +13,8 @@ public class ItemData : ScriptableObject
     public int health;
     public int critical;
 }
+
+public class ItemDataList
+{
+    public ItemData item;
+}

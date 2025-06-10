@@ -26,4 +26,51 @@ public class Character
         Critical = crit;
         CurrentExp = 9;
     }
+
+    public void Equip(List<InventoryItem> data)
+    {
+        foreach (var item in data)
+        {
+            if (item == null || item.state != ItemState.Equip) continue;
+
+            switch (item.data.Type)
+            {
+                case ItemType.Weapon:
+                    Attack += item.data.attack;
+                    break;
+                case ItemType.Armor:
+                    Defence += item.data.defence;
+                    Health += item.data.health;
+                    break;
+                case ItemType.Accessory:
+                    Health += item.data.health;
+                    Critical += item.data.critical;
+                    break;
+            }
+        }
+    }
+
+    public void UnEquip(List<InventoryItem> data)
+    {
+        foreach (var item in data)
+        {
+            if (item == null || item.state != ItemState.UnEquip) continue;
+
+
+            switch (item.data.Type)
+            {
+                case ItemType.Weapon:
+                    Attack -= item.data.attack;
+                    break;
+                case ItemType.Armor:
+                    Defence -= item.data.defence;
+                    Health -= item.data.health;
+                    break;
+                case ItemType.Accessory:
+                    Health -= item.data.health;
+                    Critical -= item.data.critical;
+                    break;
+            }
+        }
+    }
 }

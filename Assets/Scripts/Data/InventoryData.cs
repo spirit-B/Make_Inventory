@@ -3,26 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+[System.Serializable]
+public class InventoryItem
+{
+    public ItemData data;
+    public ItemState state;
+
+    public InventoryItem(ItemData item)
+    {
+        data = item;
+        state = ItemState.UnEquip;
+    }
+}
 public class InventoryData
 {
-    public List<ItemDataList> data = new List<ItemDataList>(120);
+    public List<InventoryItem> data = new List<InventoryItem>(120);
     public event UnityAction OnChangedInventory;
 
     public InventoryData()
     {
         for (int i = 0; i < 9; i++)
         {
-            data.Add(new ItemDataList());
+            data.Add(null);
         }
     }
 
     public void AddItem(ItemData item)
     {
+        InventoryItem newItem = new InventoryItem(item);
+
         for (int i = 0; i < data.Count; i++)
         {
-            if (data[i] != null && data[i].item == null)
+            if (data[i] == null)
             {
-                data[i].item = item;
+                data[i] = newItem;
                 OnChangedInventory?.Invoke();
                 return;
             }
@@ -30,7 +45,7 @@ public class InventoryData
 
         if (data.Count < 120)
         {
-            data.Add(new ItemDataList { item = item });
+            data.Add(newItem);
             OnChangedInventory?.Invoke();
         }
         else

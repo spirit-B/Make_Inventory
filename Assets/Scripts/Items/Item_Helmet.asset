@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618e8c31db30f064c8f700cd0350e7a7, type: 3}
   m_Name: Item_Helmet
   m_EditorClassIdentifier: 
+  Type: 1
   name: "\uD5EC\uBA67"
   icon: {fileID: 21300000, guid: c6e8dadad60d2cd4090d7ad7330dfa2b, type: 3}
   attack: 0

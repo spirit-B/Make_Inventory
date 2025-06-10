@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private Character Player;
+    public Character Player;
     public InventoryData _inventory;
 
     public InventoryData InventoryData

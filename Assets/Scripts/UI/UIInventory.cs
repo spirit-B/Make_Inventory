@@ -42,6 +42,8 @@ public class UIInventory : MonoBehaviour
         inventoryData = GameManager.Instance.InventoryData;
         inventoryData.OnChangedInventory += UpdateUI;
         gameObject.SetActive(isOpen);
+
+        InitDoubleClickEvent();
     }
 
     private void CreatItem()
@@ -55,7 +57,6 @@ public class UIInventory : MonoBehaviour
         int randomIdx = Random.Range(0, itemList.Length);
 
         inventoryData.AddItem(itemList[randomIdx]);
-        Debug.Log("아이템이 정상적으로 생성되었습니다.");
     }
 
     private void UpdateUI()
@@ -67,6 +68,8 @@ public class UIInventory : MonoBehaviour
                 GameObject slotObj = Instantiate(slotsPrefab, slotPanel);
                 UISlot slot = slotObj.GetComponent<UISlot>();
 
+                slot.OnDoubleClickItem += HandleDoubleClick;
+
                 slots.Add(slot);
             }
         }
@@ -77,9 +80,9 @@ public class UIInventory : MonoBehaviour
             if (i < inventoryData.data.Count)
             {
                 var data = inventoryData.data[i];
-                if (data.item != null)
+                if (data != null)
                 {
-                    slots[i].item = data.item;
+                    slots[i].item = data;
                     slots[i].SetItem();
                 }
                 else
@@ -104,5 +107,32 @@ public class UIInventory : MonoBehaviour
         }
 
         inventoryCount.text = $"Inventory   {hasItemCount} / {maxSlotCount}";
+    }
+
+    private void InitDoubleClickEvent()
+    {
+        foreach (var slot in slots)
+        {
+            slot.OnDoubleClickItem += HandleDoubleClick;
+        }
+    }
+
+    private void HandleDoubleClick(InventoryItem item)
+    {
+        var player = GameManager.Instance.Player;
+
+        if (item.state == ItemState.UnEquip)
+        {
+            item.state = ItemState.Equip;
+            player.Equip(new List<InventoryItem> { item });
+        }
+        else
+        {
+            item.state = ItemState.UnEquip;
+            player.UnEquip(new List<InventoryItem> { item });
+        }
+
+        UIManager.Instance.UIStatus.UpdateUI(player);   // 스탯 UI갱신
+        UpdateUI();
     }
 }

@@ -26,4 +26,12 @@ public class UIStatus : MonoBehaviour
     {
         gameObject.SetActive(isOpen);
     }
+
+    public void UpdateUI(Character player)
+    {
+        attackText.text = player.Attack.ToString();
+        defenceText.text = player.Defence.ToString();
+        healthText.text = player.Health.ToString();
+        criticalText.text = player.Critical.ToString();
+    }
 }

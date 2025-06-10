@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618e8c31db30f064c8f700cd0350e7a7, type: 3}
   m_Name: Item_Ring
   m_EditorClassIdentifier: 
+  Type: 2
   name: "\uBC18\uC9C0"
   icon: {fileID: 21300000, guid: 57c165c11d599fa47bacc99126a5038e, type: 3}
   attack: 0

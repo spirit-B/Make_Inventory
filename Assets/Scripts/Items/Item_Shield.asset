@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618e8c31db30f064c8f700cd0350e7a7, type: 3}
   m_Name: Item_Shield
   m_EditorClassIdentifier: 
-  Type: 1
+  Type: 3
+  State: 0
   name: "\uBC29\uD328"
   icon: {fileID: 21300000, guid: 4573cd8f670f6b24d903f921dd77805f, type: 3}
   attack: 0

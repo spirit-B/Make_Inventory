@@ -12,7 +12,8 @@ public class UIInventory : MonoBehaviour
     public GameObject slotsPrefab;
 
     public TextMeshProUGUI inventoryCount;
-    public TextMeshProUGUI warningText;
+    public TextMeshProUGUI sameTypeWarningText;
+    public TextMeshProUGUI noItemWarningText;
 
     private InventoryData inventoryData;
     private int initSlotCount = 9;
@@ -124,12 +125,19 @@ public class UIInventory : MonoBehaviour
     {
         var player = GameManager.Instance.Player;
 
+        if (item == null || item.data == null)
+        {
+            Debug.Log("장착할 아이템이 없습니다.");
+            ShowWarning(noItemWarningText);
+            return;
+        }
+
         if (item.state == ItemState.UnEquip)
         {
             if (player.IsEquippedType(item.data.Type))
             {
                 Debug.Log("이미 같은 타입의 아이템을 장착했습니다.");
-                ShowWarning();
+                ShowWarning(sameTypeWarningText);
                 return;
             }
             item.state = ItemState.Equip;
@@ -146,17 +154,17 @@ public class UIInventory : MonoBehaviour
     }
 
     // 중복 타입 아이템 장착 시 띄워줄 경고문에 사용될 메서드
-    private void ShowWarning()
+    private void ShowWarning(TextMeshProUGUI warningText)
     {
         if (warningCoroutine != null)
         {
             StopCoroutine(warningCoroutine);
         }
 
-        warningCoroutine = StartCoroutine(FadeOutWarningText());
+        warningCoroutine = StartCoroutine(FadeOutWarningText(warningText));
     }
 
-    private IEnumerator FadeOutWarningText()
+    private IEnumerator FadeOutWarningText(TextMeshProUGUI warningText)
     {
         warningText.gameObject.SetActive(true);
         float duration = 2f;

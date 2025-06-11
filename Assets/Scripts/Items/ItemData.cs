@@ -6,6 +6,8 @@ public enum ItemType
 {
     Weapon,
     Armor,
+    Helmet,
+    Shield,
     Accessory,
 }
 

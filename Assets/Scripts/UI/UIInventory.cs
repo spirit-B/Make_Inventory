@@ -12,12 +12,15 @@ public class UIInventory : MonoBehaviour
     public GameObject slotsPrefab;
 
     public TextMeshProUGUI inventoryCount;
+    public TextMeshProUGUI warningText;
 
     private InventoryData inventoryData;
     private int initSlotCount = 9;
     private int maxSlotCount = 120;
 
     public bool isOpen = false;
+
+    private Coroutine warningCoroutine;
 
     private void Update()
     {
@@ -123,6 +126,12 @@ public class UIInventory : MonoBehaviour
 
         if (item.state == ItemState.UnEquip)
         {
+            if (player.IsEquippedType(item.data.Type))
+            {
+                Debug.Log("이미 같은 타입의 아이템을 장착했습니다.");
+                ShowWarning();
+                return;
+            }
             item.state = ItemState.Equip;
             player.Equip(new List<InventoryItem> { item });
         }
@@ -134,5 +143,34 @@ public class UIInventory : MonoBehaviour
 
         UIManager.Instance.UIStatus.UpdateUI(player);   // 스탯 UI갱신
         UpdateUI();
+    }
+
+    // 중복 타입 아이템 장착 시 띄워줄 경고문에 사용될 메서드
+    private void ShowWarning()
+    {
+        if (warningCoroutine != null)
+        {
+            StopCoroutine(warningCoroutine);
+        }
+
+        warningCoroutine = StartCoroutine(FadeOutWarningText());
+    }
+
+    private IEnumerator FadeOutWarningText()
+    {
+        warningText.gameObject.SetActive(true);
+        float duration = 2f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(2f, 0f, elapsed / duration);
+            warningText.color = new Color(warningText.color.r, warningText.color.g, warningText.color.b, alpha);
+            yield return null;
+        }
+
+        warningText.gameObject.SetActive(false);
+        warningCoroutine = null;
     }
 }

@@ -14,6 +14,8 @@ public class Character
     public int Critical { get; private set; }
     public int CurrentExp { get; private set; }
 
+    public List<InventoryItem> equippedItem;
+
     public Character(string name, string desc, int exp, int level, int atk, int def, int health, int crit)
     {
         Name = name;
@@ -25,6 +27,8 @@ public class Character
         Health = health;
         Critical = crit;
         CurrentExp = 9;
+
+        equippedItem = new List<InventoryItem>();
     }
 
     public void Equip(List<InventoryItem> data)
@@ -47,6 +51,7 @@ public class Character
                     Critical += item.data.critical;
                     break;
             }
+            equippedItem.Add(item);
         }
     }
 
@@ -55,7 +60,6 @@ public class Character
         foreach (var item in data)
         {
             if (item == null || item.state != ItemState.UnEquip) continue;
-
 
             switch (item.data.Type)
             {
@@ -71,6 +75,16 @@ public class Character
                     Critical -= item.data.critical;
                     break;
             }
+            equippedItem.Remove(item);
         }
+    }
+
+    public bool IsEquippedType(ItemType type)
+    {
+        foreach (var item in equippedItem)
+        {
+            if (item.data.Type == type) return true;
+        }
+        return false;
     }
 }

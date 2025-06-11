@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Character
@@ -79,6 +78,7 @@ public class Character
         }
     }
 
+    // 장착한 아이템과 장착할 아이템의 타입을 비교하기 위한 메서드
     public bool IsEquippedType(ItemType type)
     {
         foreach (var item in equippedItem)

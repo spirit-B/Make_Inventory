@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
@@ -24,6 +22,7 @@ public class UIManager : Singleton<UIManager>
         backButton.onClick.AddListener(() => CloseNowOpen());
     }
 
+    // 인벤토리 창 열기
     public void OpenInventory()
     {
         mainMenu.gameObject.SetActive(false);
@@ -31,6 +30,7 @@ public class UIManager : Singleton<UIManager>
         backButton.gameObject.SetActive(true);
     }
 
+    // 스탯 창 열기
     public void OpenStatus()
     {
         mainMenu.gameObject.SetActive(false);
@@ -38,6 +38,7 @@ public class UIManager : Singleton<UIManager>
         backButton.gameObject.SetActive(true);
     }
 
+    // 열려있는 창을 닫기
     public void CloseNowOpen()
     {
         if (inventory.gameObject.activeInHierarchy)

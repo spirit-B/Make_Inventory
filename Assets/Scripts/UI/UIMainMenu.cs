@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +18,6 @@ public class UIMainMenu : MonoBehaviour
         openInventory.onClick.AddListener(() => UIManager.Instance.OpenInventory());
         openStatus.onClick.AddListener(() => UIManager.Instance.OpenStatus());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Init()
     {
         gameObject.SetActive(true);

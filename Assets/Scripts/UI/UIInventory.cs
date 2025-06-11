@@ -67,6 +67,7 @@ public class UIInventory : MonoBehaviour
     {
         while (slots.Count < inventoryData.data.Count)
         {
+            // 기본 생성 되어있는 9칸 슬롯 외에 슬롯을 더 추가하기
             for (int i = 0; i < 9 && slots.Count < maxSlotCount; i++)
             {
                 GameObject slotObj = Instantiate(slotsPrefab, slotPanel);
@@ -113,6 +114,7 @@ public class UIInventory : MonoBehaviour
         inventoryCount.text = $"Inventory   {hasItemCount} / {maxSlotCount}";
     }
 
+    // 인벤토리에서 처음 아이템의 아이콘을 클릭했을 때
     private void InitDoubleClickEvent()
     {
         foreach (var slot in slots)
@@ -121,10 +123,12 @@ public class UIInventory : MonoBehaviour
         }
     }
 
+    // 아이템 아이콘을 더블클릭 했을 때 행동
     private void HandleDoubleClick(InventoryItem item)
     {
         var player = GameManager.Instance.Player;
 
+        // 인벤토리의 빈 칸을 더블 클릭 시
         if (item == null || item.data == null)
         {
             Debug.Log("장착할 아이템이 없습니다.");
@@ -132,6 +136,7 @@ public class UIInventory : MonoBehaviour
             return;
         }
 
+        // 아이템의 장착 여부에 따라 아이템을 장착하거나 해제함
         if (item.state == ItemState.UnEquip)
         {
             if (player.IsEquippedType(item.data.Type))
@@ -164,6 +169,7 @@ public class UIInventory : MonoBehaviour
         warningCoroutine = StartCoroutine(FadeOutWarningText(warningText));
     }
 
+    // 경고문을 페이드아웃 시키기 위한 메서드
     private IEnumerator FadeOutWarningText(TextMeshProUGUI warningText)
     {
         warningText.gameObject.SetActive(true);

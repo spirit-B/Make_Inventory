@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class UIStatus : MonoBehaviour
@@ -11,16 +9,6 @@ public class UIStatus : MonoBehaviour
     public TextMeshProUGUI defenceText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI criticalText;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 
     public void Init()
     {
